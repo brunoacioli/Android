@@ -1,10 +1,14 @@
 package com.example.dialer
 
 import android.Manifest
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -28,7 +32,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var bhash: Button
     lateinit var bcall: Button
 
-    lateinit var back: ImageButton
+    lateinit var bclear: ImageButton
+
+    lateinit var tv: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,23 +53,90 @@ class MainActivity : AppCompatActivity() {
         bstar = findViewById(R.id.bstar)
         bhash = findViewById(R.id.bhash)
         bcall = findViewById(R.id.bcall)
-        back = findViewById(R.id.ibtn)
+        bclear = findViewById(R.id.ibtn)
+        tv = findViewById(R.id.txtphone)
 
         Dexter.withContext(this).withPermission(Manifest.permission.CALL_PHONE).withListener(object: PermissionListener {
             override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onPermissionRationaleShouldBeShown(
                 p0: PermissionRequest?,
                 p1: PermissionToken?
             ) {
-                TODO("Not yet implemented")
+
             }
         }).check()
+
+        b1.setOnClickListener {
+            tv.text = tv.text.toString() + "1"
+        }
+
+        b2.setOnClickListener {
+            tv.text = tv.text.toString() + "2"
+        }
+
+        b3.setOnClickListener {
+            tv.text = tv.text.toString() + "3"
+        }
+
+        b4.setOnClickListener {
+            tv.text = tv.text.toString() + "4"
+        }
+
+        b5.setOnClickListener {
+            tv.text = tv.text.toString() + "5"
+        }
+
+        b6.setOnClickListener {
+            tv.text = tv.text.toString() + "6"
+        }
+
+        b7.setOnClickListener {
+            tv.text = tv.text.toString() + "7"
+        }
+
+        b8.setOnClickListener {
+            tv.text = tv.text.toString() + "8"
+        }
+
+        b9.setOnClickListener {
+            tv.text = tv.text.toString() + "9"
+        }
+
+        b0.setOnClickListener {
+            tv.text = tv.text.toString() + "0"
+        }
+
+        bstar.setOnClickListener {
+            tv.text = tv.text.toString() + "*"
+        }
+
+        bhash.setOnClickListener {
+            tv.text = tv.text.toString() + "#"
+        }
+
+        bclear.setOnClickListener {
+            val numberStr: String = tv.text.toString()
+            tv.text = numberStr.dropLast(1)
+        }
+
+        bcall.setOnClickListener {
+            makePhoneCall()
+        }
+
+
+    }
+
+    private fun makePhoneCall() {
+        val numberStr :String  = tv.text.toString()
+        val dial: String = "tel:" + numberStr
+
+        startActivity(Intent(Intent.ACTION_CALL, Uri.parse(dial)))
     }
 }

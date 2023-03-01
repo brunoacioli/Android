@@ -28,9 +28,8 @@
                     android:id="@+id/txtphone"
                     android:layout_width="0dp"
                     android:textSize="45sp"
-                    android:text="1234"
                     android:textStyle="bold"
-                    android:textColor="#0000"
+                    android:textColor="@color/purple_200"
                     android:layout_height="match_parent"
                     android:layout_weight="3">
                     
