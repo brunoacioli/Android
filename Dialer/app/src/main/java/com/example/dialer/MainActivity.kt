@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         bcall = findViewById(R.id.bcall)
         back = findViewById(R.id.ibtn)
 
-        Dexter.withContext(this).withPermission(Manifest.permission.CALL_PHONE).withListener(object: PermissionListener() {
+        Dexter.withContext(this).withPermission(Manifest.permission.CALL_PHONE).withListener(object: PermissionListener {
             override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
                 TODO("Not yet implemented")
             }
@@ -64,6 +64,6 @@ class MainActivity : AppCompatActivity() {
             ) {
                 TODO("Not yet implemented")
             }
-        })
+        }).check()
     }
 }
