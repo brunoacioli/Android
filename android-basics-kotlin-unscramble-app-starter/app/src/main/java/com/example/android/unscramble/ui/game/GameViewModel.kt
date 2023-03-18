@@ -71,7 +71,7 @@ class GameViewModel: ViewModel() {
 
         getNextWord()
     }
-    
+
 
     private fun increaseScore() {
        _score.value = _score.value?.plus(SCORE_INCREASE)
