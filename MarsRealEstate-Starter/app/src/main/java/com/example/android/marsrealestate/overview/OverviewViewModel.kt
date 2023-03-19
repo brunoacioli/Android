@@ -21,7 +21,11 @@ import android.telecom.Call
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide.init
 import com.example.android.marsrealestate.network.MarsApi
+import com.example.android.marsrealestate.network.MarsProperty
+import kotlinx.coroutines.launch
 import retrofit2.Callback
 import retrofit2.Response
 
@@ -37,6 +41,11 @@ class OverviewViewModel : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
+    private val _property = MutableLiveData<MarsProperty>()
+
+    val property: LiveData<MarsProperty>
+        get() = _property
+
     /**
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
      */
@@ -48,17 +57,17 @@ class OverviewViewModel : ViewModel() {
      * Sets the value of the status LiveData to the Mars API status.
      */
     private fun getMarsRealEstateProperties() {
-        MarsApi.retrofitService.getProperties().enqueue(
-            object: Callback<String> {
-                override fun onResponse(call: retrofit2.Call<String>, response: Response<String>) {
-                    TODO("Not yet implemented")
+        viewModelScope.launch {
+            try {
+                val listResult = MarsApi.retrofitService.getProperties()
+                _response.value =
+                    "Success: ${listResult.size} Mars properties retrieved"
+                if(listResult.size > 0) {
+                    _property.value = listResult[0]
                 }
-
-                override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
             }
-        )
+        }
     }
 }
