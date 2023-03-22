@@ -17,4 +17,24 @@
 
 package com.example.android.marsrealestate.overview
 
+import android.view.ViewGroup
+import android.widget.ListAdapter
+import com.example.android.marsrealestate.network.MarsProperty
+import androidx.recyclerview.widget.DiffUtil
+
+class PhotoGridAdapter : ListAdapter<MarsProperty,
+        PhotoGridAdapter.MarsPropertyViewHolder>(DiffCallback) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoGridAdapter.MarsPropertyViewHolder {
+        TODO("not implemented")
+    }
+
+    override fun onBindViewHolder(holder: PhotoGridAdapter.MarsPropertyViewHolder, position: Int) {
+        TODO("not implemented")
+    }
+
+    companion object DiffCallback : DiffUtil.ItemCallback<MarsProperty>() {
+    }
+}
+
 
