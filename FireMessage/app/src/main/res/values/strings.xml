@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FireMessage</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="we_will_send_you_an">We will send you an</string>
+</resources>
