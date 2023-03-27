@@ -1,28 +1,27 @@
-package com.example.firemessage
+package com.example.answerandquestion
 
 import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.inputmethod.InputMethod
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import com.example.firemessage.databinding.ActivityOtpactivityBinding
+import com.example.answerandquestion.databinding.ActivityOtpactivityBinding
+import com.example.answerandquestion.databinding.ActivityVerificationBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
-import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
 import java.util.concurrent.TimeUnit
 
 class OTPActivity : AppCompatActivity() {
 
     var binding : ActivityOtpactivityBinding? = null
-    var verificationId: String? = null
+    var verificationId:String? = null
     var auth: FirebaseAuth? = null
     var dialog: ProgressDialog? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,15 +32,15 @@ class OTPActivity : AppCompatActivity() {
         dialog!!.setCancelable(false)
         dialog!!.show()
         auth = FirebaseAuth.getInstance()
-        supportActionBar!!.hide()
+        supportActionBar?.hide()
         val phoneNumber = intent.getStringExtra("phoneNumber")
-        binding!!.phoneLabel.text = "Verify $phoneNumber"
+        binding!!.phoneLabel.text= "Verify $phoneNumber"
 
         val options = PhoneAuthOptions.newBuilder(auth!!)
             .setPhoneNumber(phoneNumber!!)
             .setTimeout(60L, TimeUnit.SECONDS)
             .setActivity(this@OTPActivity)
-            .setCallbacks(object: PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
+            .setCallbacks(object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                 override fun onVerificationCompleted(p0: PhoneAuthCredential) {
                     TODO("Not yet implemented")
                 }
@@ -60,11 +59,12 @@ class OTPActivity : AppCompatActivity() {
                 }
 
             }).build()
+
         PhoneAuthProvider.verifyPhoneNumber(options)
-        binding!!.otpView.setOtpCompletionListener() { otp ->
+        binding!!.otpView.setOtpCompletionListener {otp ->
             val credential = PhoneAuthProvider.getCredential(verificationId!!, otp)
             auth!!.signInWithCredential(credential)
-                .addOnCompleteListener { task ->
+                .addOnCompleteListener {task ->
                     if(task.isSuccessful) {
                         val intent = Intent(this@OTPActivity, SetupProfileActivity::class.java)
                         startActivity(intent)

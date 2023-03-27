@@ -9,10 +9,10 @@
     android:layout_gravity="center"
     android:background="#F2F7F4"
     android:gravity="center_horizontal"
-    tools:context=".VerficationActivity">
+    tools:context=".VerificationActivity">
 
     <ImageView
-        android:src="@drawable/guy_texting_icon"
+        android:src="@drawable/guytexting_icon"
         android:scaleType="centerCrop"
         android:layout_marginTop="10dp"
         android:layout_width="250dp"
