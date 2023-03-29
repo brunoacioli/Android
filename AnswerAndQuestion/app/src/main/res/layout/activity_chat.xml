@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageView2"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 app:tint="@color/white"
@@ -157,7 +157,7 @@
         </androidx.cardview.widget.CardView>
 
         <ImageView
-            android:id="@+id/send"
+            android:id="@+id/send_btn"
             android:background="@drawable/background_shape"
             android:backgroundTint="#182881"
             android:layout_gravity="center"
