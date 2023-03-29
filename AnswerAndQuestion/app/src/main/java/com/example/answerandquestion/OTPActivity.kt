@@ -68,7 +68,7 @@ class OTPActivity : AppCompatActivity() {
                     if(task.isSuccessful) {
                         val intent = Intent(this@OTPActivity, SetupProfileActivity::class.java)
                         startActivity(intent)
-                        finishAffinity()
+                        finishAffinity()    
                     } else {
                         Toast.makeText(this@OTPActivity, "Failed", Toast.LENGTH_SHORT).show()
                     }
