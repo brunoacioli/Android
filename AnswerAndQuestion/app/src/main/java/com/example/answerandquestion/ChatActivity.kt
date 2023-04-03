@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.NonCancellable.message
+//import kotlinx.coroutines.NonCancellable.message
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -171,8 +171,46 @@ class ChatActivity : AppCompatActivity() {
                 if (data.data != null) {
                     val selectedImage = data.data
                     val calendar = Calendar.getInstance()
-                    var reference = storage.reference.child("chats")
+                    var reference = storage!!.reference.child("chats")
                         .child(calendar.timeInMillis.toString()+"")
+                    dialog!!.show()
+                    reference.putFile(selectedImage!!)
+                        .addOnCompleteListener { task ->
+                            dialog!!.dismiss()
+                            if (task.isSuccessful) {
+                                reference.downloadUrl.addOnSuccessListener { uri ->
+                                    val filePath = uri.toString()
+                                    val messageTxt :String = binding!!.messageBox.text.toString()
+                                    val date = Date()
+                                    val message = Message(messageTxt, senderUid, date.time)
+                                    message.message = "photo"
+                                    message.imageUrl = filePath
+                                    binding!!.messageBox.setText("")
+                                    val randomkey = database!!.reference.push().key
+                                    val lastMsgObj = HashMap<String,Any>()
+                                    lastMsgObj["lastMsg"] = message.message!!
+                                    lastMsgObj["lastMsgTime"] = date.time
+                                    database!!.reference.child("chats")
+                                        .updateChildren(lastMsgObj)
+                                    database!!.reference.child("chats")
+                                        .child(receiverRoom!!)
+                                        .updateChildren(lastMsgObj)
+                                    database!!.reference.child("chats")
+                                        .child(senderRoom!!)
+                                        .child("message")
+                                        .child(randomkey!!)
+                                        .setValue(message).addOnSuccessListener {
+                                            database!!.reference.child("chats")
+                                                .child(receiverRoom!!)
+                                                .child("messages")
+                                                .child(randomkey)
+                                                .setValue(message)
+                                                .addOnSuccessListener {  }
+
+                                        }
+                                }
+                            }
+                        }
                 }
             }
         }

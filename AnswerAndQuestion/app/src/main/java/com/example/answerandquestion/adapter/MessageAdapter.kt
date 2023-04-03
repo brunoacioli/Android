@@ -27,8 +27,8 @@ class MessageAdapter(
     lateinit var messages: ArrayList<Message>
     val ITEM_SENT = 1
     val ITEM_RECEIVE = 2
-    var senderRoom: String
-    val receiverRoom: String
+    var senderRoom: String? = null
+    var receiverRoom: String? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
@@ -84,13 +84,13 @@ class MessageAdapter(
                     message.message = "This message is removed"
                     message.messageId?.let {it1->
                         FirebaseDatabase.getInstance().reference.child("chats")
-                            .child(senderRoom)
+                            .child(senderRoom!!)
                             .child("message")
                             .child(it1).setValue(message)
                     }
                     message.messageId.let {it1 ->
                         FirebaseDatabase.getInstance().reference.child("chats")
-                            .child(receiverRoom)
+                            .child(receiverRoom!!)
                             .child("message")
                             .child(it1!!).setValue(message)
                     }
@@ -99,7 +99,7 @@ class MessageAdapter(
                 binding.delete.setOnClickListener {
                     message.messageId.let { it1 ->
                         FirebaseDatabase.getInstance().reference.child("chats")
-                            .child(senderRoom)
+                            .child(senderRoom!!)
                             .child("message")
                             .child(it1!!).setValue(null)
                     }
@@ -139,13 +139,13 @@ class MessageAdapter(
                     message.message = "This message is removed"
                     message.messageId?.let { it1 ->
                         FirebaseDatabase.getInstance().reference.child("chats")
-                            .child(senderRoom)
+                            .child(senderRoom!!)
                             .child("message")
                             .child(it1).setValue(message)
                     }
                     message.messageId.let { it1 ->
                         FirebaseDatabase.getInstance().reference.child("chats")
-                            .child(receiverRoom)
+                            .child(receiverRoom!!)
                             .child("message")
                             .child(it1!!).setValue(message)
                     }
@@ -154,7 +154,7 @@ class MessageAdapter(
                 binding.delete.setOnClickListener {
                     message.messageId.let { it1 ->
                         FirebaseDatabase.getInstance().reference.child("chats")
-                            .child(senderRoom)
+                            .child(senderRoom!!)
                             .child("message")
                             .child(it1!!).setValue(null)
                     }
