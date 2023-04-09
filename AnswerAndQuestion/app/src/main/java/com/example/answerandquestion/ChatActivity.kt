@@ -123,7 +123,7 @@ class ChatActivity : AppCompatActivity() {
             database!!.reference.child("chats").child(senderRoom!!)
                 .child("messages")
                 .child(randomKey!!)
-                .setValue(message).addOnCanceledListener {
+                .setValue(message).addOnSuccessListener {
                     database!!.reference.child("chats")
                         .child(receiverRoom!!)
                         .child("message")
