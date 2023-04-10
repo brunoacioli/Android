@@ -38,7 +38,7 @@ class UserAdapter(var context:Context, var userList:ArrayList<User>): RecyclerVi
             val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra("name", user.name)
             intent.putExtra("image", user.profileImage)
-            intent.putExtra("name", user.uid)
+            intent.putExtra("uid", user.uid)
             context.startActivity(intent)
 
         }
