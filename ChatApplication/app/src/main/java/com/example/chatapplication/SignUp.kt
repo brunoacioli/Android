@@ -23,9 +23,12 @@ class SignUp : AppCompatActivity() {
         btnSignUp = findViewById(R.id.btn_signup)
 
         btnSignUp.setOnClickListener {
+            val name = edtName.text.toString()
             val phone = edtPhone.text.toString()
-            val intentSignUp = Intent(this, OTPActivity::class.java)
+            val intentSignUp = Intent(this@SignUp, OTPActivity::class.java)
             intentSignUp.putExtra("phone", phone)
+            intentSignUp.putExtra("name", name)
+            finish()
             startActivity(intentSignUp)
         }
     }

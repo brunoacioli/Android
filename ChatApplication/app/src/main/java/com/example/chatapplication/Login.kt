@@ -35,8 +35,9 @@ class Login : AppCompatActivity() {
         btnLogin.setOnClickListener {
             //code for loggin in
             val phone = edtPhone.text.toString()
-            val intentLogin = Intent(this, OTPActivity::class.java)
+            val intentLogin = Intent(this@Login, OTPActivity::class.java)
             intentLogin.putExtra("phone",phone)
+            finish()
             startActivity(intentLogin)
         }
 
