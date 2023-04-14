@@ -32,6 +32,13 @@
             android:background="@drawable/message_box_background"
             android:layout_weight="85"/>
 
+
+        <ImageView
+            android:id="@+id/attachment_button"
+            android:layout_width="47dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/baseline_attachment_24" />
+
         <ImageView
             android:id="@+id/sent_button"
             android:layout_width="50dp"
